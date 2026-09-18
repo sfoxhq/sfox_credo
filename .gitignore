@@ -1,0 +1,11 @@
+.ez
+/.elixir_ls/
+/.fetch/
+/_build/
+/cover/
+/deps/
+/doc/
+/tmp/
+sfox_credo_checks-*.tar
+erl_crash.dump
+/priv/plts/
