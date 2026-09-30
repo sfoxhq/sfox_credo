@@ -1,23 +1,22 @@
-# SfoxCredo Security
+# `sfox_credo` Security
 
 ## LLM-Generated Security Report Policy
 
-Absolutely no security reports will be accepted that have been generated solely
-by LLM agents. There must be a human that confirms the issue.
+Absolutely no security reports will be accepted that have been generated
+solely by LLM agents. There must be a human that confirms the issue.
 
 ## Supported Versions
 
-Security reports are accepted for the most recent major release with support for
-the previous major version ending immediately.
+Security reports are accepted for the most recent major release with support
+for the previous major version ending immediately.
 
-SfoxCredo supports at most the three most recent versions of Elixir
-and supported [Erlang/OTP versions][otp-versions].
+`sfox_credo` supports at most the three most recent versions of Elixir and
+supported [Erlang/OTP versions][otp-versions].
 
 As of September 2026, the support list is:
 
 | Elixir | Erlang         |
 | ------ | -------------- |
-| 1.17   | 25, 26, 27, 28 |
 | 1.18   | 25, 26, 27, 28 |
 | 1.19   | 26, 27, 28     |
 | 1.20   | 27, 28, 29     |

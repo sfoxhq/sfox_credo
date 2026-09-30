@@ -1,29 +1,27 @@
 defmodule SfoxCredo.MixProject do
   use Mix.Project
 
-  @app :sfox_credo
-  @project_url "https://github.com/sfoxhq/sfox_credo"
   @version "0.1.0"
 
   def project do
     [
-      app: @app,
+      app: :sfox_credo,
       description: "Credo checks used for Elixir projects at sFOX.",
       version: @version,
-      source_url: @project_url,
-      name: "SfoxCredo",
-      elixir: "~> 1.17",
-      build_embedded: Mix.env() == :prod,
+      source_url: "https://github.com/sfoxhq/sfox_credo",
+      elixir: "~> 1.18",
       start_permanent: Mix.env() == :prod,
-      deps: deps(),
-      package: package(),
-      docs: docs(),
-      test_coverage: test_coverage(),
+      build_embedded: Mix.env() == :prod,
       elixirc_paths: elixirc_paths(Mix.env()),
+      consolidate_protocols: Mix.env() != :dev,
+      deps: deps(),
+      docs: &docs/0,
+      package: package(),
+      test_coverage: test_coverage(),
       dialyzer: [
         plt_add_apps: [:mix, :credo],
-        plt_local_path: "priv/plts/project.plt",
-        plt_core_path: "priv/plts/core.plt"
+        plt_local_path: "priv/plts/project",
+        plt_core_path: "priv/plts/core"
       ]
     ]
   end
@@ -46,37 +44,23 @@ defmodule SfoxCredo.MixProject do
     ]
   end
 
-  defp elixirc_paths(:test), do: ["lib", "test/support"]
-  defp elixirc_paths(_), do: ["lib"]
-
   defp package do
     [
-      maintainers: "sFOX",
-      licenses: [
-        "Apache-2.0"
-      ],
-      files: ~w(lib .formatter.exs mix.exs *.md),
+      maintainers: ["sFOX"],
+      licenses: ["Apache-2.0"],
+      files: ~w(lib .formatter.exs mix.exs licences/* *.md),
       links: %{
-        "Source" => @project_url,
-        "Issues" => @project_url <> "/issues"
+        "GitHub" => "https://github.com/sfoxhq/sfox_credo",
+        "Changelog" => "https://github.com/sfoxhq/sfox_credo/blob/main/CHANGELOG.md",
+        "Issues" => "https://github.com/sfoxhq/sfox_credo/issues"
       }
-    ]
-  end
-
-  defp deps do
-    [
-      {:castore, "~> 1.0", optional: true},
-      {:credo, "~> 1.0", runtime: false},
-      {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
-      {:excoveralls, "~> 0.18", only: [:test]},
-      {:ex_doc, "~> 0.29", only: [:dev, :test], runtime: false},
-      {:quokka, "~> 2.6", only: [:dev, :test], runtime: false}
     ]
   end
 
   defp docs do
     [
-      main: "SfoxCredo",
+      main: "readme",
+      source_ref: "v#{@version}",
       extras: [
         "README.md",
         "CONTRIBUTING.md": [filename: "CONTRIBUTING", title: "Contributing"],
@@ -86,9 +70,21 @@ defmodule SfoxCredo.MixProject do
         "licences/APACHE-2.0.txt": [filename: "APACHE-2.0", title: "Apache License, version 2.0"],
         "licences/dco.txt": [filename: "dco", title: "Developer Certificate of Origin"]
       ],
-      source_ref: "v#{@version}",
-      source_url: @project_url,
-      canonical: "https://hexdocs.pm/#{@app}"
+      canonical: "https://sfox-credo.hexdocs.pm/"
+    ]
+  end
+
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(_), do: ["lib"]
+
+  defp deps do
+    [
+      {:castore, "~> 1.0", optional: true},
+      {:credo, "~> 1.0", runtime: false},
+      {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
+      {:excoveralls, "~> 0.18", only: [:test]},
+      {:ex_doc, "~> 0.29", only: [:dev, :test], runtime: false},
+      {:quokka, "~> 2.6", only: [:dev, :test], runtime: false}
     ]
   end
 

@@ -1,5 +1,5 @@
 # `sfox_credo` Changelog
 
-## VERSION / YYYY-MM-DD
+## v0.1.0 / 2026-10-02
 
-- Initial release.
+Initial release of Credo checks used for Elixir projects at sFOX.

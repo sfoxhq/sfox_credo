@@ -4,24 +4,8 @@ has = fn checks -> for {mod, opts} <- checks, Code.ensure_loaded?(mod), do: {mod
   configs: [
     %{
       name: "default",
-      files: %{
-        included: [
-          "lib/",
-          "src/",
-          "test/",
-          "web/",
-          "apps/*/lib/",
-          "apps/*/src/",
-          "apps/*/test/",
-          "apps/*/web/"
-        ],
-        excluded: [~r"/_build/", ~r"/deps/", ~r"/node_modules/"]
-      },
-      plugins: [],
-      requires: [],
-      strict: true,
       checks: %{
-        enabled:
+        extra:
           has.([
             {Credo.Check.Consistency.ExceptionNames, []},
             {Credo.Check.Consistency.LineEndings, []},
@@ -124,23 +108,6 @@ has = fn checks -> for {mod, opts} <- checks, Code.ensure_loaded?(mod), do: {mod
             {Credo.Check.Warning.UnusedStringOperation, []},
             {Credo.Check.Warning.UnusedTupleOperation, []},
             {Credo.Check.Warning.WrongTestFilename, []}
-          ]),
-        disabled:
-          has.([
-            {Credo.Check.Consistency.UnusedVariableNames, []},
-            {Credo.Check.Readability.AliasAs, []},
-            {Credo.Check.Readability.CaptureOperator, []},
-            {Credo.Check.Readability.Specs, []},
-            {Credo.Check.Readability.UnusedFunctionParameterPattern, []},
-            {Credo.Check.Refactor.ABCSize, []},
-            {Credo.Check.Refactor.AppendSingleItem, []},
-            {Credo.Check.Refactor.CondInsteadOfIfElse, []},
-            {Credo.Check.Refactor.DoubleBooleanNegation, []},
-            {Credo.Check.Refactor.IoPuts, []},
-            {Credo.Check.Refactor.ModuleDependencies, []},
-            {Credo.Check.Refactor.VariableRebinding, []},
-            {Credo.Check.Warning.LazyLogging, []},
-            {Credo.Check.Warning.LeakyEnvironment, []}
           ])
       }
     }

@@ -1,4 +1,4 @@
-# SfoxCredo
+# `sfox_credo`
 
 [![Hex.pm](https://img.shields.io/hexpm/v/sfox_credo.svg?style=for-the-badge)][hexpm]
 [![Hex Docs](https://img.shields.io/badge/hex-docs-purple.svg?style=for-the-badge)][docs]
@@ -24,9 +24,28 @@ end
 
 Documentation is found on [HexDocs][docs].
 
+## Usage
+
+`sfox_credo` provides two plugins to add to the profile plugins list in
+`.credo.exs`:
+
+- `SfoxCredo.Standard`: Add this to `plugins` to configure standard Credo
+  checks (including some that will be in the next minor release) as used by
+  sFOX.
+
+- `SfoxCredo.Custom`: Add this to `plugins` to configure Credo checks written
+  by sFOX. This includes `SfoxCredo.Check.Design.EctoMigrationTimestamp` and
+  `SfoxCredo.Check.Warning.AvoidAtomToString`.
+
+When using these plugins, it is _strongly_ recommended that the `enabled`
+configuration block be omitted from your `.credo.exs`. Checks to be disabled
+should be added to the `disabled` list and additional or reconfigured checks
+should be placed in the `extra` list. Otherwise, it will be necessary for you
+to manually configure _everything_.
+
 ## Semantic Versioning
 
-SfoxCredo follows [Semantic Versioning 2.0][semver].
+`sfox_credo` follows [Semantic Versioning 2.0][semver].
 
 [docs]: https://sfox-credo-checks.hexdocs.pm/
 [hexpm]: https://hex.pm/packages/sfox_credo
