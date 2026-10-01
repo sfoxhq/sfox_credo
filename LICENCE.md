@@ -2,19 +2,20 @@
 
 <!-- SPDX-License-Identifier: Apache-2.0 -->
 
-`sfox_credo` is copyright 2026 sFOX
-and is licensed under the [Apache License, version 2.0](licences/APACHE-2.0.txt).
+`sfox_credo` is copyright 2026 sFOX and contributors and is licensed under the
+[Apache License, version 2.0](licences/APACHE-2.0.txt).
 
 - SPDX License: [Apache-2.0][spdx-apache]
 
 ## Developer Certificate of Origin
 
 All contributors **must** certify they are willing and able to provide their
-contributions under the terms of this project's licences with the certification
-of the [Developer Certificate of Origin (Version 1.1)](licences/dco.txt).
+contributions under the terms of this project's licences with the
+certification of the
+[Developer Certificate of Origin (Version 1.1)](licences/dco.txt).
 
-Such certification is provided by ensuring that a `Signed-off-by` [commit
-trailer][trailer] is present on every commit:
+Such certification is provided by ensuring that a `Signed-off-by`
+[commit trailer][trailer] is present on every commit:
 
     Signed-off-by: FirstName LastName <email@example.org>
 
@@ -26,6 +27,4 @@ git commit --signoff
 ```
 
 [spdx-apache]: https://spdx.org/licenses/Apache-2.0.html
-
 [trailer]: https://git-scm.com/docs/git-interpret-trailers
-

@@ -1,5 +1,5 @@
 defmodule SfoxCredo.Check.Warning.AvoidAtomToStringTest do
-  use Credo.Test.Case
+  use Credo.Test.Case, async: true
 
   alias SfoxCredo.Check.Warning.AvoidAtomToString
 

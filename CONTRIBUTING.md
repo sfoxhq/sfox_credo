@@ -1,8 +1,8 @@
 # Contributing
 
-Contribution to `sfox_credo` is encouraged: bug reports, discussions,
-feature requests, or code contributions. New features should be proposed and
-discussed in an [issue][issues].
+Contribution to `sfox_credo` is encouraged: bug reports, discussions, feature
+requests, or code contributions. New features should be proposed and discussed
+in an [issue][issues].
 
 Before contributing patches, please read the [Licence](./LICENCE.md).
 
@@ -16,13 +16,13 @@ I have several guidelines to contributing code through pull requests:
 - All code changes require tests. In most cases, this will be added or updated
   unit tests. I use [ExUnit][exunit].
 
-- I use code formatters, static analysis tools, and linting to ensure consistent
-  styles and formatting. There should be no warnings output from compile or test
-  run processes. I use `mix compile --warnings-as-errors`, [Credo][credo], and
-  `mix format` (with [Quokka][quokka]).
+- I use code formatters, static analysis tools, and linting to ensure
+  consistent styles and formatting. There should be no warnings output from
+  compile or test run processes. I use `mix compile --warnings-as-errors`,
+  [Credo][credo], and `mix format` (with [Quokka][quokka]).
 
-- Proposed changes should be on a thoughtfully-named topic branch and organized
-  into logical commit chunks as appropriate.
+- Proposed changes should be on a thoughtfully-named topic branch and
+  organized into logical commit chunks as appropriate.
 
 - Use [Conventional Commits][conventional] with my
   [conventions](#commit-conventions).
@@ -41,17 +41,17 @@ I have several guidelines to contributing code through pull requests:
 
 ## AI Contribution Policy
 
-`sfox_credo` contributions must be well understood by the submitter and
-that the developer can attest to the [Developer Certificate of Origin][dco] for
+`sfox_credo` contributions must be well understood by the submitter and that
+the developer can attest to the [Developer Certificate of Origin][dco] for
 each pull request (see [LICENCE](LICENCE.md)).
 
-Any contribution (bug, feature request, or pull request) that uses undeclared AI
-output will be rejected.
+Any contribution (bug, feature request, or pull request) that uses undeclared
+AI output will be rejected.
 
 ### Commit Conventions
 
-`sfox_credo` has adopted a variation of the Conventional Commits format
-for commit messages. The following types are permitted:
+`sfox_credo` has adopted a variation of the Conventional Commits format for
+commit messages. The following types are permitted:
 
 | Type    | Purpose                                               |
 | ------- | ----------------------------------------------------- |
@@ -71,18 +71,18 @@ required metadata trailers are:
 - `Breaking-Change`: if the change is a breaking change. **Do not** use the
   shorthand form (`feat!(scope)`) or `BREAKING CHANGE`.
 
-- `Signed-off-by`: this is required for all developers except me, as outlined in
-  the [Licence](./LICENCE.md#developer-certificate-of-origin).
+- `Signed-off-by`: this is required for all developers except me, as outlined
+  in the [Licence](./LICENCE.md#developer-certificate-of-origin).
 
 - `Fixes` or `Resolves`: If a change fixes one or more open [issues][issues],
   that issue must be included in the `Fixes` or `Resolves` trailer. Multiple
   issues should be listed comma separated in the same trailer:
-  `Fixes: #1, #5, #7`, but _may_ appear in separate trailers. While both `Fixes`
-  and `Resolves` are synonyms, only _one_ should be used in a given commit or
-  pull request.
+  `Fixes: #1, #5, #7`, but _may_ appear in separate trailers. While both
+  `Fixes` and `Resolves` are synonyms, only _one_ should be used in a given
+  commit or pull request.
 
-- `Related to`: If a change does not fix an issue, those issue references should
-  be included in this trailer.
+- `Related to`: If a change does not fix an issue, those issue references
+  should be included in this trailer.
 
 ## Contributors
 
