@@ -37,7 +37,7 @@ Documentation is found on [HexDocs][docs].
   sFOX.
 
 - `SfoxCredo.Custom`: Add this to `plugins` to configure Credo checks written
-  by sFOX. This includes `SfoxCredo.Check.Design.EctoMigrationTimestamp` and
+  by sFOX. This includes `SfoxCredo.Check.Design.EctoMigrationTimestamps` and
   `SfoxCredo.Check.Warning.AvoidAtomToString`.
 
 When using these plugins, it is _strongly_ recommended that the `enabled`
