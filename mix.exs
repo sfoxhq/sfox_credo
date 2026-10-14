@@ -1,7 +1,7 @@
 defmodule SfoxCredo.MixProject do
   use Mix.Project
 
-  @version "0.1.0"
+  @version "0.1.1"
 
   def project do
     [
@@ -11,7 +11,6 @@ defmodule SfoxCredo.MixProject do
       source_url: "https://github.com/sfoxhq/sfox_credo",
       elixir: "~> 1.18",
       start_permanent: Mix.env() == :prod,
-      build_embedded: Mix.env() == :prod,
       elixirc_paths: elixirc_paths(Mix.env()),
       consolidate_protocols: Mix.env() != :dev,
       deps: deps(),
@@ -75,6 +74,7 @@ defmodule SfoxCredo.MixProject do
   end
 
   defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(:dev), do: ["lib", "support"]
   defp elixirc_paths(_), do: ["lib"]
 
   defp deps do
