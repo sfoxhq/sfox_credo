@@ -72,8 +72,17 @@ Each check in `SfoxCredo.Custom` belongs to one group.
 
 - `:ecto` (disabled by default)
 
+  `Ecto` checks can only be enabled when `ecto` is a dependency.
+
   - `SfoxCredo.Check.Design.EctoMigrationTimestamps`: Ecto migrations create
     tables with both timestamp columns.
+
+- `:ash` (disabled by default)
+
+  `Ash` checks can only be enabled when `ash` is a dependency.
+
+  - `SfoxCredo.Check.Refactor.AshCallInEnum`: Checks for `Ash` calls that go
+    to the data layer once for each element of a collection.
 
 - `:security` (enabled by default)
 
@@ -81,6 +90,12 @@ Each check in `SfoxCredo.Custom` belongs to one group.
     messages.
   - `SfoxCredo.Check.Warning.LoggerMetadataInspect`: no `inspect/1` in Logger
     metadata values.
+
+- `:suppressions` (enabled by default)
+
+  - `SfoxCredo.Check.Readability.DisableWithoutReason`: Checks that each
+    `# credo:disable-*` (and other tool suppressions) comment has a reason in
+    the comment block directly above it.
 
 Change the selection with the `include` and `exclude` plugin params. `exclude`
 wins when a group is in both. Any other param, or an unknown group, stops Credo

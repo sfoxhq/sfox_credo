@@ -130,9 +130,11 @@ has = fn checks -> for {mod, opts} <- checks, Code.ensure_loaded?(mod), do: {mod
             {Credo.Check.Warning.WrongTestFilename, []},
             # This library's checks
             {SfoxCredo.Check.Design.EctoMigrationTimestamps, []},
+            {SfoxCredo.Check.Readability.DisableWithoutReason, []},
             {SfoxCredo.Check.Readability.DocFencedCode, []},
             {SfoxCredo.Check.Readability.DocHeadingLevel, []},
             {SfoxCredo.Check.Readability.DocListStyle, []},
+            {SfoxCredo.Check.Refactor.AshCallInEnum, []},
             {SfoxCredo.Check.Warning.AvoidAtomToString, []},
             {SfoxCredo.Check.Warning.LoggerMessageInspect, []},
             {SfoxCredo.Check.Warning.LoggerMetadataInspect, []}
