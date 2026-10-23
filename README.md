@@ -20,7 +20,7 @@ Add `sfox_credo` to your dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:sfox_credo, "~> 0.1"}
+    {:sfox_credo, "~> 0.2"}
   ]
 end
 ```
@@ -37,7 +37,9 @@ Documentation is found on [HexDocs][docs].
   sFOX.
 
 - `SfoxCredo.Custom`: Add this to `plugins` to configure Credo checks written
-  by sFOX. This includes `SfoxCredo.Check.Design.EctoMigrationTimestamps` and
+  by sFOX. This includes `SfoxCredo.Check.Design.EctoMigrationTimestamps`,
+  `SfoxCredo.Check.Readability.DisableWithoutReason`,
+  `SfoxCredo.Check.Warning.AshCallInEnum` and
   `SfoxCredo.Check.Warning.AvoidAtomToString`.
 
 When using these plugins, it is _strongly_ recommended that the `enabled`
