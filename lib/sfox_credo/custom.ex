@@ -18,6 +18,10 @@ defmodule SfoxCredo.Custom do
 
   Each check belongs to one group, given by its Credo tag:
 
+  - `:ash` (disabled by default)
+
+    - `SfoxCredo.Check.Refactor.AshCallInEnum`
+
   - `:correctness` (enabled by default)
 
     - `SfoxCredo.Check.Warning.AvoidAtomToString`
@@ -37,8 +41,12 @@ defmodule SfoxCredo.Custom do
     - `SfoxCredo.Check.Warning.LoggerMessageInspect`
     - `SfoxCredo.Check.Warning.LoggerMetadataInspect`
 
-  Change the selection with the `include` and `exclude` plugin params; `exclude` wins when
-  a group is in both:
+  - `:suppressions` (enabled by default)
+
+    - `SfoxCredo.Check.Readability.DisableWithoutReason`
+
+  Change the selection with the `include` and `exclude` plugin params;
+  `exclude` wins when a group is in both:
 
   ```elixir
   plugins: [{SfoxCredo.Custom, include: [:ecto], exclude: [:docs]}]
@@ -51,8 +59,10 @@ defmodule SfoxCredo.Custom do
   checks: %{extra: [{SfoxCredo.Check.Design.EctoMigrationTimestamps, []}]}
   ```
 
-  Any param other than `include` and `exclude`, or an unknown group in either, stops Credo
-  with an error and a non-zero exit status.
+  Any param other than `include` and `exclude`, an unknown group in either, or an
+  `include` of `:ash` or `:ecto` when `Ash` or `Ecto` isn't a dependency stops Credo with
+  an error and a non-zero exit status. Checks for those groups are only compiled when
+  their library is a dependency.
 
   When the plugin is listed in more than one config file (a project's `.credo.exs` and its
   umbrella's, say), the params of the config closest to the project are used, as with
@@ -73,16 +83,21 @@ defmodule SfoxCredo.Custom do
 
   @checks [
     SfoxCredo.Check.Design.EctoMigrationTimestamps,
+    SfoxCredo.Check.Readability.DisableWithoutReason,
     SfoxCredo.Check.Readability.DocFencedCode,
     SfoxCredo.Check.Readability.DocHeadingLevel,
     SfoxCredo.Check.Readability.DocListStyle,
+    SfoxCredo.Check.Refactor.AshCallInEnum,
     SfoxCredo.Check.Warning.AvoidAtomToString,
     SfoxCredo.Check.Warning.LoggerMessageInspect,
     SfoxCredo.Check.Warning.LoggerMetadataInspect
   ]
 
-  @groups [:correctness, :docs, :ecto, :security]
-  @default_groups [:correctness, :docs, :security]
+  # The library each optional group's checks need.
+  @group_dependencies [ash: Ash, ecto: Ecto]
+
+  @groups [:ash, :correctness, :docs, :ecto, :security, :suppressions]
+  @default_groups [:correctness, :docs, :security, :suppressions]
   @params [:include, :exclude]
 
   # Credo concatenates the `plugins` of every config file it reads (root directory first,
@@ -112,7 +127,33 @@ defmodule SfoxCredo.Custom do
   end
 
   @doc false
-  def checks, do: @checks
+  def checks, do: available(@checks)
+
+  @doc false
+  # The checks that are compiled; an `:ash` or `:ecto` check isn't when its library is
+  # missing.
+  def available(checks), do: Enum.filter(checks, &Code.ensure_loaded?/1)
+
+  @doc false
+  # An error message when an included group needs a library that isn't a dependency, or
+  # `nil`.
+  def missing_dependency(groups, dependencies) do
+    case for({group, module} <- dependencies, group in groups, not Code.ensure_loaded?(module), do: {group, module}) do
+      [] ->
+        nil
+
+      missing ->
+        names = Enum.map_join(missing, ", ", fn {group, module} -> "#{inspect(group)} needs #{inspect(module)}" end)
+        "SfoxCredo.Custom `include` has groups whose library is not a dependency: #{names}"
+    end
+  end
+
+  @doc false
+  def checks(groups) when is_list(groups) do
+    Enum.filter(checks(), &selected?(&1, groups))
+  end
+
+  def checks(group), do: checks([group])
 
   @doc false
   def groups, do: @groups
@@ -146,15 +187,20 @@ defmodule SfoxCredo.Custom do
   defp groups_param(params, key) do
     value = params[key] || []
 
-    if is_list(value) and Enum.all?(value, &(&1 in @groups)) do
-      {:ok, value}
-    else
-      {:error, "SfoxCredo.Custom `#{key}` must be a list of groups from #{inspect(@groups)}, got: #{inspect(value)}"}
+    cond do
+      not (is_list(value) and Enum.all?(value, &(&1 in @groups))) ->
+        {:error, "SfoxCredo.Custom `#{key}` must be a list of groups from #{inspect(@groups)}, got: #{inspect(value)}"}
+
+      message = key == :include && missing_dependency(value, @group_dependencies) ->
+        {:error, message}
+
+      true ->
+        {:ok, value}
     end
   end
 
   defp config(selected, name) do
-    extra = for check <- @checks, selected?(check, selected), do: {check, []}
+    extra = for check <- checks(), selected?(check, selected), do: {check, []}
 
     inspect(%{configs: [%{name: name, checks: %{extra: extra}}]}, limit: :infinity)
   end

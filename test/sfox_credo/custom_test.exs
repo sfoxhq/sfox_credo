@@ -8,32 +8,35 @@ defmodule SfoxCredo.CustomTest do
   alias Credo.CLI.Options
   alias Credo.Execution
   alias Credo.Execution.Task.InitializePlugins
-  alias SfoxCredo.Check.Readability.DocFencedCode
-  alias SfoxCredo.Check.Readability.DocHeadingLevel
-  alias SfoxCredo.Check.Readability.DocListStyle
-  alias SfoxCredo.Check.Warning.AvoidAtomToString
-  alias SfoxCredo.Check.Warning.LoggerMessageInspect
-  alias SfoxCredo.Check.Warning.LoggerMetadataInspect
+  alias SfoxCredo.Check.Design
+  alias SfoxCredo.Check.Readability
+  alias SfoxCredo.Check.Refactor
+  alias SfoxCredo.Check.Warning
   alias SfoxCredo.Custom
 
-  @docs [DocFencedCode, DocHeadingLevel, DocListStyle]
-  @security [LoggerMessageInspect, LoggerMetadataInspect]
+  @ash [Refactor.AshCallInEnum]
+  @correctness [Warning.AvoidAtomToString]
+  @docs [Readability.DocFencedCode, Readability.DocHeadingLevel, Readability.DocListStyle]
+  @ecto [Design.EctoMigrationTimestamps]
+  @security [Warning.LoggerMessageInspect, Warning.LoggerMetadataInspect]
+  @suppressions [Readability.DisableWithoutReason]
 
   describe "selection" do
-    test "enables correctness, docs, and security checks by default" do
-      assert selection(init([])) == sorted([AvoidAtomToString | @docs ++ @security])
+    test "enables correctness, docs, security, and suppressions checks by default" do
+      assert selection(init([])) == sorted([@correctness, @docs, @security, @suppressions])
     end
 
     test "include adds the ecto group" do
-      assert selection(init(include: [:ecto])) == sorted(Custom.checks())
+      assert selection(init(include: [:ecto])) == sorted([@correctness, @docs, @ecto, @security, @suppressions])
     end
 
     test "exclude drops a default group" do
-      assert selection(init(exclude: [:docs])) == sorted([AvoidAtomToString | @security])
+      assert selection(init(exclude: [:docs])) == sorted([@correctness, @security, @suppressions])
     end
 
     test "exclude wins over include" do
-      assert selection(init(include: [:ecto], exclude: [:ecto, :security])) == sorted([AvoidAtomToString | @docs])
+      assert selection(init(include: [:ecto], exclude: [:ecto, :security])) ==
+               sorted([@correctness, @docs, @suppressions])
     end
 
     test "excluding every group registers no checks" do
@@ -46,7 +49,7 @@ defmodule SfoxCredo.CustomTest do
     end
 
     test "params may be a map" do
-      assert selection(init(%{include: [:ecto]})) == sorted(Custom.checks())
+      assert selection(init(%{include: [:ecto]})) == sorted([@correctness, @docs, @ecto, @security, @suppressions])
     end
   end
 
@@ -55,7 +58,7 @@ defmodule SfoxCredo.CustomTest do
       exec = init_plugins([{Custom, []}, {Custom, include: [:ecto]}])
 
       assert [{:plugin, Custom, _config}] = Execution.get_config_files(exec)
-      assert selection(exec) == sorted(Custom.checks())
+      assert selection(exec) == sorted(Custom.checks(), @ash)
     end
 
     test "a last listing of `false` registers nothing" do
@@ -99,6 +102,25 @@ defmodule SfoxCredo.CustomTest do
         assert Execution.get_halt_message(exec) =~ unquote(pattern)
         assert Execution.get_config_files(exec) == []
       end
+    end
+  end
+
+  # `Ash` and `Ecto` are dependencies here, so a module that doesn't exist stands in for
+  # a check or library that isn't compiled.
+  describe "optional dependencies" do
+    test "only checks that are compiled are available" do
+      assert Custom.available([Warning.AvoidAtomToString, SfoxCredo.Check.Refactor.NotCompiled]) ==
+               [Warning.AvoidAtomToString]
+    end
+
+    test "including a group whose library is missing is an error" do
+      assert Custom.missing_dependency([:ash, :docs], ash: NotADependency) ==
+               "SfoxCredo.Custom `include` has groups whose library is not a dependency: :ash needs NotADependency"
+    end
+
+    test "including a group whose library is present, or not including it, is fine" do
+      assert Custom.missing_dependency([:ash], ash: Ash) == nil
+      assert Custom.missing_dependency([:docs], ash: NotADependency) == nil
     end
   end
 
@@ -150,7 +172,6 @@ defmodule SfoxCredo.CustomTest do
     InitializePlugins.call(%{Execution.build() | plugins: plugins, cli_options: cli_options}, [])
   end
 
-  # Credo's safe (non-evaluating) loader, which also proves the config is plain data.
   defp selection(exec) do
     assert [{:plugin, Custom, config}] = Execution.get_config_files(exec)
     assert {:ok, %{configs: [%{checks: checks} = config]}} = Credo.ExsLoader.parse(config, "nofile", exec, true)
@@ -202,5 +223,8 @@ defmodule SfoxCredo.CustomTest do
     end)
   end
 
-  defp sorted(modules), do: Enum.sort(modules)
+  defp sorted(modules, exclude \\ []) do
+    modules = List.flatten(modules) -- List.flatten(exclude)
+    Enum.sort(modules)
+  end
 end

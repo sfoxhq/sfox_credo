@@ -83,6 +83,8 @@ defmodule SfoxCredo.MixProject do
 
   defp deps do
     [
+      {:ash, "~> 3.0", optional: true},
+      {:ecto, "~> 3.0", optional: true},
       {:castore, "~> 1.0", optional: true},
       {:credo, "~> 1.0", runtime: false},
       {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
