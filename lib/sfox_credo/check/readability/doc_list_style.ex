@@ -57,6 +57,7 @@ defmodule SfoxCredo.Check.Readability.DocListStyle do
   use Credo.Check,
     base_priority: :low,
     category: :readability,
+    tags: [:docs],
     param_defaults: [marker: "-", check_indentation: true],
     explanations: [
       check: """

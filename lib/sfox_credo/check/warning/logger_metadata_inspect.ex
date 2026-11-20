@@ -100,6 +100,7 @@ defmodule SfoxCredo.Check.Warning.LoggerMetadataInspect do
   use Credo.Check,
     base_priority: :high,
     category: :warning,
+    tags: [:security],
     param_defaults: [allowed_keys: [], extra_loggers: [], extra_logger_functions: []],
     explanations: [
       check: """

@@ -16,15 +16,16 @@ defmodule SfoxCredo.Standard do
 
   import Credo.Plugin
 
+  alias SfoxCredo.PluginConfig
+
   config_file = Path.join(__DIR__, "standard_config.exs")
   @config File.read!(config_file)
   @external_resource config_file
 
-  # coveralls-ignore-start
+  # The config is registered under the config name in effect, so it also applies with
+  # `--config-name`; the config file reads it from the `config_name` binding.
   @doc false
   def init(exec) do
-    register_default_config(exec, @config)
+    register_default_config(exec, "config_name = #{inspect(PluginConfig.config_name(exec))}\n" <> @config)
   end
-
-  # coveralls-ignore-stop
 end

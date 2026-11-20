@@ -1,5 +1,6 @@
 {
   "skip_files": [
+    "lib/sfox_credo/standard.ex",
     "test/support"
   ],
   "terminal_options": {
