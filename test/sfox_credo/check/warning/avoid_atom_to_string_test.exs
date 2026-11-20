@@ -228,4 +228,32 @@ defmodule SfoxCredo.Check.Warning.AvoidAtomToStringTest do
     |> run_check(AvoidAtomToString)
     |> assert_issue()
   end
+
+  test "flags the fully qualified Elixir.Atom.to_string/1" do
+    """
+    defmodule CredoSampleModule do
+      def run do
+        Elixir.Atom.to_string(:foo)
+      end
+    end
+    """
+    |> to_source_file()
+    |> run_check(AvoidAtomToString)
+    |> assert_issue()
+  end
+
+  test "does not flag a __MODULE__-relative alias named Atom" do
+    """
+    defmodule CredoSampleModule do
+      alias __MODULE__.Atom
+
+      def run do
+        Atom.to_string(:foo)
+      end
+    end
+    """
+    |> to_source_file()
+    |> run_check(AvoidAtomToString)
+    |> refute_issues()
+  end
 end

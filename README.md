@@ -37,8 +37,10 @@ Documentation is found on [HexDocs][docs].
   sFOX.
 
 - `SfoxCredo.Custom`: Add this to `plugins` to configure Credo checks written
-  by sFOX. This includes `SfoxCredo.Check.Design.EctoMigrationTimestamps` and
-  `SfoxCredo.Check.Warning.AvoidAtomToString`.
+  by sFOX. This includes `SfoxCredo.Check.Design.EctoMigrationTimestamps`,
+  `SfoxCredo.Check.Warning.AvoidAtomToString`,
+  `SfoxCredo.Check.Warning.LoggerMessageInspect`, and
+  `SfoxCredo.Check.Warning.LoggerMetadataInspect`.
 
 When using these plugins, it is _strongly_ recommended that the `enabled`
 configuration block be omitted from your `.credo.exs`. Checks to be disabled

@@ -24,8 +24,20 @@ defmodule SfoxCredo.CustomConfigTest do
     shipped =
       :sfox_credo
       |> Application.spec(:modules)
-      |> Enum.filter(&String.starts_with?(Macro.to_string(&1), "SfoxCredo.Check."))
+      # Shared helpers (alias resolution, Logger call matching, doc scanning) live under
+      # `SfoxCredo.Check` too; only modules implementing `Credo.Check` are checks.
+      |> Enum.filter(&(String.starts_with?(Macro.to_string(&1), "SfoxCredo.Check.") and credo_check?(&1)))
 
     assert Enum.sort(shipped) == Enum.sort(configured_modules())
+  end
+
+  defp credo_check?(module) do
+    behaviours =
+      :attributes
+      |> module.module_info()
+      |> Keyword.get_values(:behaviour)
+      |> List.flatten()
+
+    Credo.Check in behaviours
   end
 end

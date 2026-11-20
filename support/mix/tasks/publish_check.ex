@@ -64,7 +64,9 @@ defmodule Mix.Tasks.PublishCheck do
 
     notes = section!(lines, version)
 
-    if file = opts[:notes_file], do: File.write!(file, notes)
+    if file = opts[:notes_file] do
+      File.write!(file, notes)
+    end
 
     Mix.shell().info("Release #{version} OK")
   end
@@ -110,9 +112,11 @@ defmodule Mix.Tasks.PublishCheck do
         check_date(version, date, today)
 
       nil ->
-        if semver?(heading),
-          do: {:error, "malformed version heading (expected \"## vX.Y.Z / YYYY-MM-DD\")"},
-          else: pending()
+        if semver?(heading) do
+          {:error, "malformed version heading (expected \"## vX.Y.Z / YYYY-MM-DD\")"}
+        else
+          pending()
+        end
     end
   end
 
