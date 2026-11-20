@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2026 sFOX and contributors <https://github.com/sfoxhq/sfox_credo/graphs/contributors>
+#
+# SPDX-License-Identifier: Apache-2.0
+
 has = fn checks -> for {mod, opts} <- checks, Code.ensure_loaded?(mod), do: {mod, opts} end
 
 %{

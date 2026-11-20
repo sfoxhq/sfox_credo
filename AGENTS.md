@@ -1,5 +1,11 @@
 # `sfox_credo` for Agents
 
+<!--
+SPDX-FileCopyrightText: 2026 sFOX and contributors <https://github.com/sfoxhq/sfox_credo/graphs/contributors>
+
+SPDX-License-Identifier: Apache-2.0
+-->
+
 `sfox_credo` is an Elixir library of Credo checks and Credo plugin
 configurations used for Elixir projects at sFOX. It has no application
 runtime: everything here runs inside `mix credo`.

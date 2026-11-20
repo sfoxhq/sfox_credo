@@ -1,5 +1,11 @@
 # Contributing
 
+<!--
+SPDX-FileCopyrightText: 2026 sFOX and contributors <https://github.com/sfoxhq/sfox_credo/graphs/contributors>
+
+SPDX-License-Identifier: Apache-2.0
+-->
+
 Contribution to `sfox_credo` is encouraged: bug reports, discussions, feature
 requests, or code contributions. New features should be proposed and discussed
 in an [issue][issues].

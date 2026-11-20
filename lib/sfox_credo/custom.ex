@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2026 sFOX and contributors <https://github.com/sfoxhq/sfox_credo/graphs/contributors>
+#
+# SPDX-License-Identifier: Apache-2.0
+
 defmodule SfoxCredo.Custom do
   @moduledoc """
   Custom Credo checks used for Elixir projects at sFOX.
