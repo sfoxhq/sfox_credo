@@ -16,9 +16,25 @@
   `Check.Warning.LoggerMessageInspect` also flags `~p`, `~P`, `~w` and `~W` in
   Erlang `:logger` format strings, which flatten terms the same way.
 
+- Added three checks for enforcing certain documentation conventions in
+  `@moduledoc`, `@doc`, and `@typedoc`.
+
+  - `Check.Readability.DocListStyle` enforces consistent unordered list bullet
+    styles (`-` as the default) and can enforce text-aligned indentation.
+
+  - `Check.Readability.DocFencedCode` enforces that all code blocks use code
+    fences and can enforce that all code fences have a language marker.
+
+  - `Check.Readability.DocHeadingLevel` enforces that `#` is not used in a
+    documentation block and that headers only increment by one. This check
+    also verifies that [admonition blocks][admonitions] are formatted
+    correctly with one of the known admonition types.
+
 ### Bug Fixes
 
 - `Check.Warning.AvoidAtomToString` now flags `Elixir.Atom.to_string/1`.
+
+[admonitions]: https://ex-doc.hexdocs.pm/readme.html#admonition-blocks
 
 ## v0.1.2 / 2026-10-14
 
