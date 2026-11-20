@@ -5,7 +5,7 @@
 defmodule SfoxCredo.MixProject do
   use Mix.Project
 
-  @version "0.1.2"
+  @version "0.2.0"
 
   def project do
     [
@@ -51,7 +51,10 @@ defmodule SfoxCredo.MixProject do
     [
       maintainers: ["sFOX"],
       licenses: ["Apache-2.0"],
-      files: ~w(lib .formatter.exs mix.exs licences/* *.md),
+      files: ~w(
+        lib .formatter.exs mix.exs licences/* CHANGELOG.md CODE_OF_CONDUCT.md
+        CONTRIBUTING.md LICENCE.md README.md SECURITY.md
+      ),
       links: %{
         "GitHub" => "https://github.com/sfoxhq/sfox_credo",
         "Changelog" => "https://github.com/sfoxhq/sfox_credo/blob/main/CHANGELOG.md",
@@ -86,7 +89,7 @@ defmodule SfoxCredo.MixProject do
       {:ash, "~> 3.0", optional: true},
       {:ecto, "~> 3.0", optional: true},
       {:castore, "~> 1.0", optional: true},
-      {:credo, "~> 1.0", runtime: false},
+      {:credo, "~> 1.7", runtime: false},
       {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
       {:excoveralls, "~> 0.18", only: [:test]},
       {:ex_doc, "~> 0.29", only: [:dev, :test], runtime: false},
