@@ -1,6 +1,10 @@
 # Licence
 
-<!-- SPDX-License-Identifier: Apache-2.0 -->
+<!--
+SPDX-FileCopyrightText: 2026 sFOX and contributors <https://github.com/sfoxhq/sfox_credo/graphs/contributors>
+
+SPDX-License-Identifier: Apache-2.0
+-->
 
 `sfox_credo` is copyright 2026 sFOX and contributors and is licensed under the
 [Apache License, version 2.0](licences/APACHE-2.0.txt).

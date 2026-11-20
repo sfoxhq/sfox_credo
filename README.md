@@ -1,5 +1,11 @@
 # `sfox_credo`
 
+<!--
+SPDX-FileCopyrightText: 2026 sFOX and contributors <https://github.com/sfoxhq/sfox_credo/graphs/contributors>
+
+SPDX-License-Identifier: Apache-2.0
+-->
+
 [![Hex.pm](https://img.shields.io/hexpm/v/sfox_credo.svg?style=for-the-badge)][hexpm]
 [![Hex Docs](https://img.shields.io/badge/hex-docs-purple.svg?style=for-the-badge)][docs]
 [![Apache-2.0](https://img.shields.io/hexpm/l/sfox_credo.svg?style=for-the-badge "Apache-2.0")](https://github.com/sfoxhq/sfox_credo/blob/main/LICENCE.md)

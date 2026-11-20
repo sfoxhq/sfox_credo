@@ -1,5 +1,11 @@
 # `sfox_credo` Security
 
+<!--
+SPDX-FileCopyrightText: 2026 sFOX and contributors <https://github.com/sfoxhq/sfox_credo/graphs/contributors>
+
+SPDX-License-Identifier: Apache-2.0
+-->
+
 ## LLM-Generated Security Report Policy
 
 Absolutely no security reports will be accepted that have been generated

@@ -1,5 +1,11 @@
 # `sfox_credo` Changelog
 
+<!--
+SPDX-FileCopyrightText: 2026 sFOX and contributors <https://github.com/sfoxhq/sfox_credo/graphs/contributors>
+
+SPDX-License-Identifier: Apache-2.0
+-->
+
 ## v0.2.0 / 2026-11-20
 
 ### Breaking Changes
