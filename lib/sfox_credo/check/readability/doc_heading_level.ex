@@ -79,6 +79,7 @@ defmodule SfoxCredo.Check.Readability.DocHeadingLevel do
   use Credo.Check,
     base_priority: :low,
     category: :readability,
+    tags: [:docs],
     explanations: [
       check: """
       Documentation headings should start at `##` and should not skip levels. Admonition

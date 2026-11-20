@@ -62,6 +62,7 @@ defmodule SfoxCredo.Check.Readability.DocFencedCode do
   use Credo.Check,
     base_priority: :low,
     category: :readability,
+    tags: [:docs],
     param_defaults: [require_language: true],
     explanations: [
       check: """

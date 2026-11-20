@@ -93,6 +93,7 @@ defmodule SfoxCredo.Check.Warning.LoggerMessageInspect do
   use Credo.Check,
     base_priority: :high,
     category: :warning,
+    tags: [:security],
     param_defaults: [extra_loggers: [], extra_logger_functions: []],
     explanations: [
       check: """

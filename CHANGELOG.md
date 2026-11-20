@@ -2,6 +2,21 @@
 
 ## v0.2.0 / 2026-11-20
 
+### Breaking Changes
+
+These are _strictly_ breaking changes, but are unlikely to cause any problems
+for anyone excluding `SfoxCredo.Check.Design.EctoMigrationTimestamps`.
+
+- `SfoxCredo.Custom` checks are grouped by Credo tag (`:correctness`, `:docs`,
+  `:ecto`, `:security`) and selected with the `include` and `exclude` plugin
+  params. `:ecto` is opt-in, so `Check.Design.EctoMigrationTimestamps` is now
+  disabled by default; add `include: [:ecto]` to use it. An unknown parameter
+  or group stops Credo with an error. When the plugin is listed in more than
+  one config file, the params of the config closest to the project are used.
+
+- `SfoxCredo.Standard` and `SfoxCredo.Custom` register their checks under the
+  config name in effect, so they also apply with `mix credo --config-name`.
+
 ### New Checks
 
 - Added two checks that flag the use of `inspect/1,2` in log messages and

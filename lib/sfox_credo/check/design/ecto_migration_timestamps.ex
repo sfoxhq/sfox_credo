@@ -19,6 +19,7 @@ defmodule SfoxCredo.Check.Design.EctoMigrationTimestamps do
   use Credo.Check,
     base_priority: :high,
     category: :design,
+    tags: [:ecto],
     param_defaults: [inserted_at: [], start_after: nil, updated_at: []],
     explanations: [
       check: """

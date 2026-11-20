@@ -46,6 +46,7 @@ defmodule SfoxCredo.Check.Warning.AvoidAtomToString do
   use Credo.Check,
     base_priority: :normal,
     category: :warning,
+    tags: [:correctness],
     explanations: [
       check: """
       Prefer `to_string/1` over `Atom.to_string/1`.

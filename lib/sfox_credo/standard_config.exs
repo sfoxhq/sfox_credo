@@ -1,9 +1,10 @@
+# `config_name` is set in `SfoxCredo.Standard.init/1`: the config name in effect.
 has = fn checks -> for {mod, opts} <- checks, Code.ensure_loaded?(mod), do: {mod, opts} end
 
 %{
   configs: [
     %{
-      name: "default",
+      name: config_name,
       checks: %{
         extra:
           has.([
