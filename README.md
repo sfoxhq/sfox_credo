@@ -38,6 +38,9 @@ Documentation is found on [HexDocs][docs].
 
 - `SfoxCredo.Custom`: Add this to `plugins` to configure Credo checks written
   by sFOX. This includes `SfoxCredo.Check.Design.EctoMigrationTimestamps`,
+  `SfoxCredo.Check.Readability.DocFencedCode`,
+  `SfoxCredo.Check.Readability.DocHeadingLevel`,
+  `SfoxCredo.Check.Readability.DocListStyle`,
   `SfoxCredo.Check.Warning.AvoidAtomToString`,
   `SfoxCredo.Check.Warning.LoggerMessageInspect`, and
   `SfoxCredo.Check.Warning.LoggerMetadataInspect`.
