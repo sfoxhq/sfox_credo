@@ -17,7 +17,9 @@ certification of the
 Such certification is provided by ensuring that a `Signed-off-by`
 [commit trailer][trailer] is present on every commit:
 
-    Signed-off-by: FirstName LastName <email@example.org>
+```text
+Signed-off-by: FirstName LastName <email@example.org>
+```
 
 The `Signed-off-by` trailer can be automatically added by git with the `-s` or
 `--signoff` option on `git commit`:

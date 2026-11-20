@@ -95,7 +95,6 @@ sFOX created `sfox_credo`.
 [dco]: licences/dco.txt
 [exunit]: https://hexdocs.pm/ex_unit/ExUnit.html
 [issues]: https://github.com/sfoxhq/sfox_credo/issues
-[kiro]: https://kiro.dev
 [quokka]: https://github.com/emkguts/quokka
 [tpope-qcm]: https://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html
 [trailers1]: https://git-scm.com/docs/git-interpret-trailers
