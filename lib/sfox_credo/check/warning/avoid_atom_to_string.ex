@@ -52,6 +52,8 @@ defmodule SfoxCredo.Check.Warning.AvoidAtomToString do
       """
     ]
 
+  alias SfoxCredo.Check.Aliases
+
   def run(source_file, params) do
     issue_meta = IssueMeta.for(source_file, params)
     ast = SourceFile.ast(source_file)
@@ -59,7 +61,7 @@ defmodule SfoxCredo.Check.Warning.AvoidAtomToString do
   end
 
   defp collect_issues(ast, issue_meta) do
-    aliases = collect_aliases(ast)
+    aliases = Aliases.collect(ast)
 
     {_, issues} =
       Macro.postwalk(ast, [], fn node, acc ->
@@ -95,73 +97,10 @@ defmodule SfoxCredo.Check.Warning.AvoidAtomToString do
 
   defp issue_for_node(_, _aliases), do: nil
 
-  defp atom_module?({:__aliases__, _, [name]}, line, aliases) do
-    case resolve_alias(name, line, aliases) do
-      {:ok, canonical} -> real_atom_module?(canonical)
-      :error -> name == :Atom
-    end
-  end
-
-  defp atom_module?(_, _line, _aliases), do: false
-
-  defp real_atom_module?([:Atom]), do: true
-  defp real_atom_module?([Elixir, :Atom]), do: true
-  defp real_atom_module?(_), do: false
-
-  defp resolve_alias(name, line, aliases) do
-    case matching_aliases(name, line, aliases) do
-      [] ->
-        :error
-
-      matches ->
-        {:ok,
-         matches
-         |> Enum.max_by(&elem(&1, 0))
-         |> elem(2)}
-    end
-  end
-
-  defp matching_aliases(name, line, aliases) do
-    Enum.filter(aliases, fn {alias_line, alias_name, _canonical} -> alias_name == name and alias_line <= line end)
+  defp atom_module?(module, line, aliases) do
+    Aliases.resolve(module, line, aliases) == {:ok, [:Atom]}
   end
 
   defp nil_literal?(nil), do: true
   defp nil_literal?(_), do: false
-
-  # Approximates Elixir's alias scoping by tracking declaration line rather than lexical
-  # block — see the moduledoc.
-  defp collect_aliases(ast) do
-    {_, aliases} = Macro.postwalk(ast, [], &collect_alias_node/2)
-    aliases
-  end
-
-  defp collect_alias_node({:alias, meta, [{:__aliases__, _, segments}]} = node, acc) do
-    {node, [alias_entry(meta, segments, List.last(segments)) | acc]}
-  end
-
-  defp collect_alias_node({:alias, meta, [{:__aliases__, _, segments}, opts]} = node, acc) when is_list(opts) do
-    entry =
-      case Keyword.get(opts, :as) do
-        {:__aliases__, _, as_segments} -> alias_entry(meta, segments, List.last(as_segments))
-        _ -> alias_entry(meta, segments, List.last(segments))
-      end
-
-    {node, [entry | acc]}
-  end
-
-  defp collect_alias_node({:alias, meta, [{{:., _, [{:__aliases__, _, base}, :{}]}, _, items}]} = node, acc) do
-    entries =
-      Enum.map(items, fn {:__aliases__, _, tail} ->
-        full = base ++ tail
-        alias_entry(meta, full, List.last(full))
-      end)
-
-    {node, entries ++ acc}
-  end
-
-  defp collect_alias_node(node, acc), do: {node, acc}
-
-  defp alias_entry(meta, canonical_segments, local_name) do
-    {Keyword.get(meta, :line, 0), local_name, canonical_segments}
-  end
 end

@@ -123,7 +123,12 @@ has = fn checks -> for {mod, opts} <- checks, Code.ensure_loaded?(mod), do: {mod
             {Credo.Check.Warning.UnusedRegexOperation, []},
             {Credo.Check.Warning.UnusedStringOperation, []},
             {Credo.Check.Warning.UnusedTupleOperation, []},
-            {Credo.Check.Warning.WrongTestFilename, []}
+            {Credo.Check.Warning.WrongTestFilename, []},
+            # This library's checks
+            {SfoxCredo.Check.Design.EctoMigrationTimestamps, []},
+            {SfoxCredo.Check.Warning.AvoidAtomToString, []},
+            {SfoxCredo.Check.Warning.LoggerMessageInspect, []},
+            {SfoxCredo.Check.Warning.LoggerMetadataInspect, []}
           ]),
         disabled:
           has.([
