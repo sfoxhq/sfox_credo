@@ -23,8 +23,8 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
+      id-token: write # Required for workload identities
       contents: write # Required to create the release
-      id-token: write # Required to get Hex authentication
 
     steps:
       - name: Harden Runner
