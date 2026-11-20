@@ -15,7 +15,6 @@ defmodule SfoxCredo.Check.Design.EctoMigrationTimestamps do
     overrides. `:inserted_at` and `:updated_at` are always implicitly supported.
   """
 
-  # coveralls-ignore-next-line
   use Credo.Check,
     base_priority: :high,
     category: :design,
